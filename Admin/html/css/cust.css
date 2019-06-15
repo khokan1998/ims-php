@@ -1,0 +1,26 @@
+
+div.header{
+	background-color: #CCC;
+	padding: 20px;
+}
+div.footer{
+	background-color: #777;
+	color: white;
+	padding: 20px;
+	text-align: center;
+}
+div.section:after{
+	content: "";
+	display: table;
+	clear: both;
+
+}
+div.ims-contain-wrapeer{
+min-height="400px";
+}
+
+.top20{
+	margin-top: 20px;
+}
+
+
