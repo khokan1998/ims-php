@@ -5,7 +5,7 @@ if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
 }
 
-
+// Do we need to get this done like this?
 $erroMsg = '';
 
 $id = '';
