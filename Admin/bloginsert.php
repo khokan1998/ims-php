@@ -3,9 +3,6 @@ include 'connectserver.php';
 if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
 }
-
-		
-
 		$id = '';
 		$title = '';
 		$Description = '';
@@ -13,7 +10,8 @@ if (!isset($_SESSION['first_name'])) {
 		$created_on = '';
 		$created_by = '';
 
-		
+
+// Added comment for git.		
 
 if (isset($_GET['id'])) {
 		$id = $_GET['id'];
