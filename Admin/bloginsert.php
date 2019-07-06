@@ -47,7 +47,7 @@ print_r($_POST);
 	 				echo "Error:" . "</br>" . mysqli_error($conn);
 
 	 				}
-	 		}
+ 			}
     else {
 	$sql = "INSERT INTO blog(title,description,created_on,updated_on,created_by) VALUES ('$title','$description',now(),'$updated_on', $userId)";
 	//print $sql;
