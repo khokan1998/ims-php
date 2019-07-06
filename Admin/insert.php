@@ -1,6 +1,6 @@
  <?php
 
-include "connectserver.php";
+include 'includes/connectserver.php';
 if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
 }
@@ -119,6 +119,7 @@ print $sql;
 			//print $sql;
 			echo "</br>";
 			if (mysqli_query($conn, $sql)) {
+				header('location: list.php');
   			    echo "New record created successfully";
 			} else { 
 			    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -137,12 +138,12 @@ print $sql;
 <?php
 
 
-include "connectheader.php";
+include 'includes/connectheader.php';
 
 ?>
 
 
-
+<div><h2>New User</h2></div>
 <div class="container">
 		
 		<div class="row">
@@ -153,36 +154,43 @@ include "connectheader.php";
 				<h4><?php echo ($id != '') ? 'Edit Form' : 'New form'  ?></h4>
 				<form action="" method="POST" name="login">
 					<div class="form-group">
-						<label>first_name:</label>
- 						<input type="text" name="first_name" value="<?php echo $first_name;  ?>" placeholder="first_name" class="form-control">
+						<label>First Name:</label>
+ 						<input type="text" name="first_name" value="<?php echo $first_name;  ?>" placeholder="First Name" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>last_name:</label>
-						<input type="text" name="last_name" value="<?php echo $last_name; ?>" placeholder="last_name" class="form-control">
+						<label>Last Name:</label>
+						<input type="text" name="last_name" value="<?php echo $last_name; ?>" placeholder="Last Name" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Email:</label>
-						<input type="mail" name="email" value="<?php echo $email; ?>" placeholder="email" class="form-control">
+						<input type="mail" name="email" value="<?php echo $email; ?>" placeholder="Email" class="form-control">
 					</div>
 					<div class="form-group"> 
-						<label>mobile</label>
-						<input type="phone" name="mobile" value="<?php echo $mobile; ?>" class="form-control" placeholder="phone"></div>
+						<label>Mobile No:</label>
+						<input type="phone" name="mobile" value="<?php echo $mobile; ?>" class="form-control" placeholder="Mobile No"></div>
 						<div class="form-group">
-							<label>password</label>
-							<input type="password" name="PASSWORD" value="<?php echo $PASSWORD; ?>" placeholder="password" class="form-control">
+							<label>Password:</label>
+							<input type="password" name="PASSWORD" value="<?php echo $PASSWORD; ?>" placeholder="Password" class="form-control">
 						</div>
 					
-					<div class="form-group">
-						<label>Is-active:</label>
+					<div class="checkbox">
+						<label>
 						<input type="checkbox" name="is_active" value="1" <?php echo ($is_active) ? 'checked' : '';?>>
+						Is_active</label>
+					</div>
+					<div><label>Role:</label>
+						<select name="code">
+							<option value="USER">USER</option>
+							<option value="ADMIN" selected="">ADMIN</option>
+						</select>
 					</div>
 					<div>
-						<button type="submit" name="submit" class="btn btn-danger">Submit</button>
+						<button type="submit" name="submit" class="btn btn-primary">Submit</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	
-  	<?php include "connectfooter.php";
+  	<?php include 'includes/connectfooter.php';
  ?>

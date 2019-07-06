@@ -1,26 +1,26 @@
 <?php
-include "connectserver.php";
+include 'includes/connectserver.php';
 
+if(isset($_SESSION['id'])){
+	header('location:index.php');
+}
 
+$PASSWORD = "";
 
-	
-
-		$PASSWORD = "";
-
-print_r($_POST);
+//print_r($_POST);
 
 if(isset($_POST['email']))
 {
-			$email = $_POST['email'];
-			$PASSWORD = $_POST['PASSWORD'];
+	$email = $_POST['email'];
+	$PASSWORD = $_POST['PASSWORD'];
 
-			$sql = "SELECT * FROM users WHERE email = '$email' AND PASSWORD = '$PASSWORD' limit 1;";
+	$sql = "SELECT * FROM users WHERE email = '$email' AND PASSWORD = '$PASSWORD' limit 1;";
 
-			//print $sql;
-			$result = mysqli_query($conn, $sql) or die("BAD QUERY");
+	print $sql;
+	$result = mysqli_query($conn, $sql) or die("BAD QUERY");
 
 		if(mysqli_num_rows($result) == 1)
-			{
+		{
 
 			$data = mysqli_fetch_assoc($result);
 			// print_r($data);
@@ -39,7 +39,7 @@ if(isset($_POST['email']))
 		
 			header("location:index.php");
 			}
-else
+	else
 		 	{
 			echo "Invalid Credential!";
 			}
@@ -47,59 +47,47 @@ else
 
 	mysqli_close($conn);
 	
-include 'connectheader.php';
+include 'includes/connectheader.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<script type="text/javascript">
-		function validateform(){
-			var x = document.forms["login"]["email"].value;
-			console.log(x);
-			if (x == "") {
-				alert("plz fill up email address");
-				document.forms["login"]["email"].focus();
-				return false;
-			}
-			var y = document.forms["login"]["password"].value;
-			if (y == "") {
-				alert("filled up password");
-				document.forms["login"]["dob"].focus();
-				return false;
-			}
-			}
-	</script>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="html/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="html/css/cust.css">
-</head>
-<body>
-	<div class="container-fluid header"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-				<form name="login" class="login-form" method="post">
-					<div class="form-group">
-						<label>email</label>
-						<input type="mail" name="email" class="form-control">
+<div><h2>Login</h2></div>
+<script type="text/javascript">
+	function validateform(){
+		var x = document.forms["login"]["email"].value;
+		console.log(x);
+		if (x == "") {
+			alert("plz fill up email address");
+			document.forms["login"]["email"].focus();
+			return false;
+		}
+		var y = document.forms["login"]["password"].value;
+		if (y == "") {
+			alert("filled up password");
+			document.forms["login"]["dob"].focus();
+			return false;
+		}
+		}
+</script>
+	
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+		<form name="login" class="login-form" method="post">
+			<div class="form-group">
+				<label>Email</label>
+				<input type="mail" name="email" class="form-control">
 
-					</div>
-					<div class="form-group">
-						<label>password</label>
-						<input type="password" name="PASSWORD" class="form-control">
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-danger">Login</button>
-						
-					</div>
-				</form>
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" name="PASSWORD" class="form-control">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Login</button>
 				
 			</div>
-		</div>
+		</form>
+		
 	</div>
-	<div class="container-fluid footer">
-		footer
-	</div>
-
-</body>
-</html>
+</div>
+<?php
+include 'includes/connectfooter.php';
+?>

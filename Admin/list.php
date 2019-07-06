@@ -1,17 +1,16 @@
 <?php
-include "connectserver.php";
-
-
+include 'includes/connectserver.php';
 if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
 }
 
 $first_name = "";
 
-if(isset($_REQUEST['submit'])){
+if(isset($_REQUEST['first_name'])){
     $first_name=$_GET['first_name'];
     
     $sql=" SELECT * FROM users";
+     $result=mysqli_query($conn,$sql);
 
     if (!empty($first_name)) {
         $sql .= " WHERE first_name like '%".$first_name."%' OR last_name LIKE '%".$first_name."%' OR email LIKE '%".$first_name."%' OR mobile LIKE '%".$first_name."%'";
@@ -25,32 +24,18 @@ if(isset($_REQUEST['submit'])){
     $result=mysqli_query($conn,$sql);
 }
 else{
-    $sql="SELECT * FROM users";
+    $sql= "SELECT * FROM users";
     $result=mysqli_query($conn,$sql);
 }
-
-include "connectheader.php";
 ?>
-
-
-
-
-
-	<div class="container">
-	
-			<h2 align="center"><div>
-			<form method="get">
-    			<table border="1">
-  						<tr>
-    
-    			<td>
-    				<input type="text" name="first_name" value="<?php echo $first_name;?>" /></td>
-    
-        <td><input type="submit" name="submit" value="search" /></td>
-  </tr>
-</table>
-</form></div>
-</h2>
+<?php include 'includes/connectheader.php'; ?>
+<div><h2>User</h2></div>
+<form class="form-inline">
+	<div class="form-group">
+		<input type="text"class="form-control"placeholder="search"name="first_name"value="<?php echo $first_name;?>">
+	<button type="submit" class="btn btn-primary">search</button>
+	</div>
+</form>
 <form>
 	<table class="table">
 		<thead>
@@ -88,4 +73,4 @@ include "connectheader.php";
 		</tbody>
 	</table>
 	</form>
-	<?php include"connectfooter.php" ?>
+	<?php include 'includes/connectfooter.php' ?>

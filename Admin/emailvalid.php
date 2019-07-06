@@ -1,5 +1,5 @@
 <?php
-include "connectserver.php";
+include 'includes/connectserver.php';
 
 
 $email = '';
@@ -53,7 +53,7 @@ $email = $_POST['email'];
 </head>
 <body>
 	<form method="post">
-		<label>email:</label>
+		<label>Email:</label>
 		<input type="mail" name="email" value="">
 		<input type="submit" name="submit" value="submit">
 	</form>

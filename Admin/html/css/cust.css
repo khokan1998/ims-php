@@ -13,14 +13,13 @@ div.section:after{
 	content: "";
 	display: table;
 	clear: both;
-
-}
-div.ims-contain-wrapeer{
-min-height="400px";
 }
 
 .top20{
 	margin-top: 20px;
 }
 
+.ims-contain-wrapeer{
+	min-height: 350px;
+}
 
