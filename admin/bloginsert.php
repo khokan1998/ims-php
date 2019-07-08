@@ -40,6 +40,7 @@ print_r($_POST);
 	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId where id = $id";
 			print $sql;
 	 			if (mysqli_query($conn,$sql)) {
+	 				header('laction: listblog.php');
 	 				echo "Data update successfully";
 	 				}
 	 			else

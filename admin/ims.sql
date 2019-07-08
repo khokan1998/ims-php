@@ -34,3 +34,13 @@ CREATE TABLE `blog` (
 
 
 alter table users add(user_role varchar(10) not null default'user');
+
+
+create table category (
+ id int(6) not null auto_increment,
+ name varchar(255) not null,
+ is_active tinyint(1) default null,
+ primary key (id));
+ 
+ select * from category;
+ insert into category(name,is_active) values('santosh','1');

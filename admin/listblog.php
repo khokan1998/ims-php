@@ -45,7 +45,7 @@ include 'includes/connectheader.php';
 		<th>Created By</th>
 		<th>Updated By</th>
 		<th>Edit</th>
-	</thead></tr>
+	</tr></thead>
 	<tbody>
 		<?php while ($row = mysqli_fetch_assoc($result)) {
 			

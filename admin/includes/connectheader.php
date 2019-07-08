@@ -20,6 +20,8 @@
 					<li><a href="bloginsert.php">Bloginsert</a></li>
 					<li><a href="list.php">User</a></li>
 					<li><a href="insert.php">New User</a></li>
+					<li><a href="categoryinsert.php">categoryinsert</a></li>
+					<li><a href="categorylist.php">categorylist</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 				<?php
@@ -28,11 +30,13 @@
 			</div>
 			<div class="col-sm-4" align="right">
 				<?php
+				if(isset($_SESSION['id'])){
 				$first_name= $_SESSION['first_name'];
 				$last_name= $_SESSION['last_name']; 
 				if(isset($_SESSION['first_name'])){
 				echo $first_name.' '.$last_name;
 				}
+			}
 				?>
 			</div>
 

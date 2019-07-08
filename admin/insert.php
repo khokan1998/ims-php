@@ -73,9 +73,6 @@ print $sql;
 		{
 			echo "Error:" . "</br>" . mysqli_error($conn);
 
-			
- 
-
 		}
 	}
 	else {
