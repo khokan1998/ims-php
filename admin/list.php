@@ -3,7 +3,6 @@ include 'includes/connectserver.php';
 if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
 }
-
 $first_name = "";
 
 if(isset($_REQUEST['first_name'])){
@@ -13,7 +12,7 @@ if(isset($_REQUEST['first_name'])){
      $result=mysqli_query($conn,$sql);
 
     if (!empty($first_name)) {
-        $sql .= " WHERE first_name like '%".$first_name."%' OR last_name LIKE '%".$first_name."%' OR email LIKE '%".$first_name."%' OR mobile LIKE '%".$first_name."%'";
+        $sql .= " WHERE first_name like '%".$first_name."%' OR last_name LIKE '%".$first_name."%' OR email LIKE '%".$first_name."%' OR mobile LIKE '%".$first_name."%' OR user_role like '%".$first_name."%'";
     }
     
 
@@ -47,7 +46,9 @@ else{
 			<th>mobile</th>
 			<th>PASSWORD</th>
 			<th>created_on</th>
-			<th>is_active</th>
+			<th>active</th>
+			<th>role</th>
+			<th>edit</th>
 			</tr>
 		
 			</thead>
@@ -65,6 +66,7 @@ else{
 			<td><?php echo $row['PASSWORD']?></td>
 			<td><?php echo $row['created_on']?></td>
 			<td><?php echo $row['is_active']?></td>
+			<td><?php echo $row['user_role']?></td>
 			<td><a href="insert.php?id=<?php echo $row['id']?>">edit</a></td>
 		</tr>
 		<?php

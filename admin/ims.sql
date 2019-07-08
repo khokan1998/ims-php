@@ -31,3 +31,6 @@ CREATE TABLE `blog` (
   CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
   CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8
+
+
+alter table users add(user_role varchar(10) not null default'user');
