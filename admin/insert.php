@@ -15,6 +15,7 @@ $mobile = '';
 $email = '';
 $PASSWORD = '';
 $is_active = '';
+$user_role = '';
 
 //$created_on = '';
 $error = false;
@@ -33,27 +34,23 @@ if (isset($_GET['id'])) {
 	$mobile = $data['mobile'];
 	$PASSWORD = $data['PASSWORD'];
 	$is_active = $data['is_active'];
-
-
-
+	$user_role = $data['user_role'];
 }
 
 
-
 if (isset($_POST['first_name'])) {
-	# code...
-			$first_name = $_POST['first_name'];
-			$last_name = $_POST['last_name'];
-			$email = $_POST['email'];
-			$mobile = $_POST['mobile'];
-			$PASSWORD = $_POST['PASSWORD'];
 
-			$is_active = (isset($_POST['is_active'])) ? 1 : 0;
+	$first_name = $_POST['first_name'];
+	$last_name = $_POST['last_name'];
+	$email = $_POST['email'];
+	$mobile = $_POST['mobile'];
+	$PASSWORD = $_POST['PASSWORD'];
+	$is_active = (isset($_POST['is_active'])) ? 1 : 0;
+	$user_role = $_POST['user_role'];
 
+	$error = false;
 
-			$error = false;
-
-	if (empty($first_name) OR empty($last_name) OR empty($email) OR empty($mobile) OR empty($PASSWORD)) 
+	if (empty($first_name) OR empty($last_name) OR empty($email) OR empty($mobile) OR empty($PASSWORD) OR empty($user_role)) 
 {
 	$error = true;
 		$erroMsg .= "plz fill up  all the  value.";
@@ -65,9 +62,10 @@ if (isset($_POST['first_name'])) {
 
 	if ($id) {
 		// case edit.. DO UPDATE.
-		$sql = "UPDATE users SET first_name = '$first_name',last_name = '$last_name',email = '$email',mobile = '$mobile',PASSWORD='$PASSWORD',is_active='$is_active' where id = $id";
+		$sql = "UPDATE users SET first_name = '$first_name',last_name = '$last_name',email = '$email',mobile = '$mobile',PASSWORD='$PASSWORD',is_active='$is_active',user_role='$user_role' where id = $id";
 print $sql;
 		if (mysqli_query($conn,$sql)) {
+			header('location:list.php');
 			echo "Data update successfully";
 			
 		}
@@ -103,10 +101,6 @@ print $sql;
 
 		//print_r($checkData);
 
-
-
-		
-
 		if (isset($checkData['email']) && $checkData['email'] == $email) {
 			$error = true;
 			$erroMsg .= "Given email is already exists."; 
@@ -114,13 +108,14 @@ print $sql;
 
 
 		if ($error == false) {
-			$sql = "INSERT INTO users(first_name, last_name,email,mobile,PASSWORD,created_on,is_active)
-			VALUES ('$first_name', '$last_name', '$email','$mobile','$PASSWORD',now(),'$is_active')";
-			//print $sql;
-			echo "</br>";
+			// print_r($_POST);
+			$sql = "INSERT INTO users(first_name, last_name,email,mobile,PASSWORD,created_on,is_active,user_role)
+			VALUES ('$first_name', '$last_name', '$email','$mobile','$PASSWORD',now(),'$is_active','$user_role')";
+			// print $sql;
+		
 			if (mysqli_query($conn, $sql)) {
 				header('location: list.php');
-  			    echo "New record created successfully";
+  			    // echo "New record created successfully";
 			} else { 
 			    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
@@ -179,9 +174,9 @@ include 'includes/connectheader.php';
 						Is_active</label>
 					</div>
 					<div><label>Role:</label>
-						<select name="code">
-							<option value="USER">USER</option>
-							<option value="ADMIN" selected="">ADMIN</option>
+						<select name="user_role">
+							<option value="user">user</option>
+							<option value="admin" selected="">admin</option>
 						</select>
 					</div>
 					<div>
