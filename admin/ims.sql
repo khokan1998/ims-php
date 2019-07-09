@@ -32,6 +32,9 @@ CREATE TABLE `blog` (
   CONSTRAINT `blog_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8
 
+alter table blog add (
+  category_id int(6) null,
+    foreign key(category_id) references category(id)
 
 alter table users add(user_role varchar(10) not null default'user');
 
@@ -44,3 +47,8 @@ create table category (
  
  select * from category;
  insert into category(name,is_active) values('santosh','1');
+
+ select * from category where is_active = 1;
+ select id,name from category where is_active = 1;
+ truncate category; 
+ 

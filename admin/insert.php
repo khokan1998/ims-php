@@ -63,10 +63,10 @@ if (isset($_POST['first_name'])) {
 	if ($id) {
 		// case edit.. DO UPDATE.
 		$sql = "UPDATE users SET first_name = '$first_name',last_name = '$last_name',email = '$email',mobile = '$mobile',PASSWORD='$PASSWORD',is_active='$is_active',user_role='$user_role' where id = $id";
-print $sql;
+		// print $sql;
 		if (mysqli_query($conn,$sql)) {
 			header('location:list.php');
-			echo "Data update successfully";
+			// echo "Data update successfully";
 			
 		}
 		else
@@ -175,6 +175,9 @@ include 'includes/connectheader.php';
 							<option value="user">user</option>
 							<option value="admin" selected="">admin</option>
 						</select>
+					</div>
+					<div class="btn">
+						<a href="insert.php">cancel</a>
 					</div>
 					<div>
 						<button type="submit" name="submit" class="btn btn-primary">Submit</button>

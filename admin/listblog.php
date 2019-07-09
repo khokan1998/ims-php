@@ -44,6 +44,7 @@ include 'includes/connectheader.php';
 		<th>Updated On</th>
 		<th>Created By</th>
 		<th>Updated By</th>
+		<th>Category</th>
 		<th>Edit</th>
 	</tr></thead>
 	<tbody>
@@ -58,6 +59,7 @@ include 'includes/connectheader.php';
 		<td><?php echo $row['updated_on']; ?></td>
 		<td><?php echo $row['created_by']; ?></td>
 		<td><?php echo $row['updated_by']; ?></td>
+		<td><?php echo $row['category_id']; ?></td>
 		<td><a href="bloginsert.php?id=<?php echo $row['id']?>">edit</a></td>
 	</tr>
 		<?php

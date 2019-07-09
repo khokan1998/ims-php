@@ -22,7 +22,7 @@ else{
 }
 include 'includes/connectheader.php';
 ?>
-<div><h2>category list</h2></div>
+<div><h2>Category List</h2></div>
 <table class="table table-bordered">
 	<thead><tr>
 		<th>Id</th>

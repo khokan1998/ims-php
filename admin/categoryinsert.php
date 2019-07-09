@@ -15,20 +15,22 @@ if(isset($_GET['id'])){
 	$value = mysqli_query($conn,$sql) or die("error");
 	$data = mysqli_fetch_assoc($value);
 
-	$id = $data['id'];
 	$name = $data['name'];
 	$is_active = $data['is_active'];
 }
 
-if(isset($_POST['id'])){
-	$id = $_POST['id'];
+if($_POST){
+	// $id = $_POST['id'];
 	$name = $_POST['name'];
 	$is_active = $_POST['is_active'];
 
-	if($id){
-		$sql = "UPDATE category SET name = '$name',is_active = '$is_active' WHERE id = $id";
+	if ($id) {
+		$sql = "UPDATE category SET name = '$name',is_active = '$is_active'where id = $id";
+		// print $sql;
+		// die();
 		if(mysqli_query($conn,$sql)){
-			echo "update successfully";
+			header('location:categorylist.php');
+			// echo "update successfully";
 		}
 		else{
 			echo "error:" ."</br>" .mysqli_error($conn);
@@ -36,8 +38,11 @@ if(isset($_POST['id'])){
 	}
 	else{
 		$sql = "INSERT INTO category(name,is_active) VALUES ('$name','$is_active')";
+		// print $sql;
+		// die();
 		if(mysqli_query($conn,$sql)){
-			echo "data insert successfully";
+			header('location:categorylist.php');
+			// echo "data insert successfully";
 		}
 		else{
 			echo "error:" . $sql . "<br>".mysqli_erroe($conn);
@@ -53,7 +58,7 @@ include 'includes/connectheader.php';
 		<div class="col-sm-4 col-sm-offset-4">
 			<form action="" method="POST" name="insert">
 			<div class="form-group">
-				<label>Name</label>
+				<label>Name:</label>
 				<input type="textfield" name="name" placeholder="Name" class="form-control" value="<?php echo $name; ?>">
 			</div>
 			<div class="checkbox">
@@ -61,6 +66,9 @@ include 'includes/connectheader.php';
 					<input type="checkbox" name="is_active" value="1" <?php echo ($is_active) ? 'checked' : '';?>>
 					is_active
 				</label>
+			</div>
+			<div class="btn">
+				<a href="categoryinsert.php">cancel</a>
 			</div>
 				<div>
 					<button type="submit" name="submit" class="btn btn-primary">submit</button>
