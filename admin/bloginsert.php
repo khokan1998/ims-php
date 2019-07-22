@@ -52,7 +52,7 @@ if ($_POST) {
 	 				}
  			}
     else {
-	$sql = "INSERT INTO blog(title,description,created_on,updated_on,created_by,category_id) VALUES ('$title','$description',now(),'$updated_on', $userId,$category_id)";
+	$sql = "INSERT INTO blog(title,description,created_on,created_by,category_id) VALUES ('$title','$description',now(), $userId,$category_id)";
 	//print $sql;
 	// echo "</br>";
 	if (mysqli_query($conn, $sql)) 
