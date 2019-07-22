@@ -68,23 +68,26 @@ if ($_POST) {
 	 if ($id) {
 	 	if($error == false){
 	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId, category_id = $category_id,teaser = '$teaser' where id = $id";
-	 			if (mysqli_query($conn,$sql)) {
-	 				header('location: listblog.php');
-	 				// echo "Data update successfully";
- 				}else{
-	 				echo "Error:" . "</br>" . mysqli_error($conn);
-	 				}
-		}
-	}
+ 			if (mysqli_query($conn,$sql)) {
+ 				header('location: listblog.php');
+ 				// echo "Data update successfully";
+				}else{
+ 				echo "Error:" . "</br>" . mysqli_error($conn);
+ 			}
+ 		}
+ 	}
     else {
-    	if($error == false){
-			$sql = "INSERT INTO blog(title,description,created_on,updated_on,created_by,category_id,teaser) VALUES ('$title','$description',now(),'$updated_on',$userId,$category_id,'$teaser')";
-			if (mysqli_query($conn, $sql)) {
-				 header('location: listblog.php');
-	    		// echo "New record created successfully";
-			}else { 
-	    		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				}
+		$sql = "INSERT INTO blog(title,description,created_on,created_by,category_id) VALUES ('$title','$description',now(), $userId,$category_id)";
+	//print $sql;
+	// echo "</br>";
+		if (mysqli_query($conn, $sql)) 
+		{
+			 header('location: listblog.php');
+		    // echo "New record created successfully";
+		} 
+		else
+		{ 
+		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			mysqli_close($conn);
 		}
 	}
