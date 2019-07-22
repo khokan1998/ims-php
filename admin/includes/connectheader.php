@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Admin Panel</title>
 	<link rel="stylesheet" type="text/css" href="html/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="html/css/cust.css">
 </head>
@@ -17,11 +18,11 @@
 				<ul class="list-inline">
 					<li><a href="index.php">Home</a></li>
 					<li><a href="listblog.php">Blog List</a></li>
-					<li><a href="bloginsert.php">Bloginsert</a></li>
+					<li><a href="bloginsert.php">Blog Insert</a></li>
 					<li><a href="list.php">User</a></li>
 					<li><a href="insert.php">New User</a></li>
-					<li><a href="categoryinsert.php">categoryinsert</a></li>
-					<li><a href="categorylist.php">categorylist</a></li>
+					<li><a href="categoryinsert.php">Category Insert</a></li>
+					<li><a href="categorylist.php">Category List</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 				<?php

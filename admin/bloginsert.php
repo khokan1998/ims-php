@@ -4,6 +4,7 @@ if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
 }
 //echo $_SESSION['id'];
+
 $id = '';
 $title = '';
 $description = '';
@@ -12,8 +13,9 @@ $created_on = '';
 $created_by = '';
 $updated_by = '';
 $category_id = '';
-
-// Added comment for git.		
+$teaser = '';
+$error = false;
+$arer = [];		
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
@@ -28,79 +30,112 @@ if (isset($_GET['id'])) {
 	$updated_on = $data['updated_on'];
 	$created_by = $data['id'];
 	$updated_by = $data['id'];
-	$category_id = $data['id'];
+	$category_id = $data['category_id'];
+	$teaser = $data['teaser'];
+	// print_r($data);
 }
 
-
 if ($_POST) {
-// print_r($_POST);
-	$title = $_POST['title'];
-	$description = $_POST['description'];
+	  print_r($_POST);
+	$title = trim($_POST['title']);
+	$teaser = trim($_POST['teaser']);
+	$description = trim($_POST['description']);
 	$category_id = $_POST['category_id'];
 	$userId = $_SESSION['id'];
+
+	if(empty($title)){
+		$error = true;
+		$arer['title'] = '* Please fill up Title';
+	}else {
+		$title = trim($_POST['title']);
+	}
+	if(empty($teaser)){
+		$error = true;
+		$arer['teaser'] = '* Please fill up Teaser';
+	}else {
+		$teaser = trim($_POST['teaser']);
+	}
+	if(empty($description)){
+		$error = true;
+		$arer['description'] = '* Please fill up Description';
+	} else {
+		$description = trim($_POST['description']);
+	}
+	// if($category_id == 'NULL'){
+	// 	$arer['category_id'] = '* Please Select Category';	
+	// }
+		
 	 if ($id) {
-	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId, category_id = $category_id where id = $id";
-			// print $sql;
+	 	if($error == false){
+	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId, category_id = $category_id,teaser = '$teaser' where id = $id";
 	 			if (mysqli_query($conn,$sql)) {
 	 				header('location: listblog.php');
 	 				// echo "Data update successfully";
-	 				}
-	 			else
-	 				{
+ 				}else{
 	 				echo "Error:" . "</br>" . mysqli_error($conn);
-
 	 				}
- 			}
-    else {
-	$sql = "INSERT INTO blog(title,description,created_on,updated_on,created_by,category_id) VALUES ('$title','$description',now(),'$updated_on', $userId,$category_id)";
-	//print $sql;
-	// echo "</br>";
-	if (mysqli_query($conn, $sql)) 
-	{
-		 header('location: listblog.php');
-	    // echo "New record created successfully";
-	} 
-	else
-	{ 
-	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
 	}
-		mysqli_close($conn);
+    else {
+    	if($error == false){
+			$sql = "INSERT INTO blog(title,description,created_on,updated_on,created_by,category_id,teaser) VALUES ('$title','$description',now(),'$updated_on',$userId,$category_id,'$teaser')";
+			if (mysqli_query($conn, $sql)) {
+				 header('location: listblog.php');
+	    		// echo "New record created successfully";
+			}else { 
+	    		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				}
+			mysqli_close($conn);
+		}
 	}
 }
-
 include 'includes/connectheader.php';
 ?>
+
 <div><h2>Blog Insert</h2></div>
 <div class="container">
 	<div class="row">
+		<div class="col-sm-4 col-sm-offset-4">
 
-		<div class="col-sm-4 col-sm-offset-4">			
 			<form action="" method="POST" name="insert">
-				<div><label>Category:</label>
-					<select name="category_id">
-						<option value="">Please Select</option>
-<?php
-		$sql = "SELECT * FROM category WHERE is_active = 1";
-		$value = mysqli_query($conn,$sql) OR die("error");
-		while($row = mysqli_fetch_assoc($value)){
-			?>
-			<option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-<?php } ?>
-					</select>
-				</div>		
+				<?php $category_id; ?>
+			<div class="form-group">			
+				<label for="Category">Category:</label>
+				<select name="category_id" id="Category" class="form-control">
+					<!-- <div class="text-danger"><?php if($category_id == 'NULL'){ print $arer['category_id'];} ?></div> -->
+					<option value="NULL">Please Select</option>
+		
+					<?php
+					$sql = "SELECT * FROM category WHERE is_active = 1";
+					$value = mysqli_query($conn,$sql) OR die("error");
+					while($row = mysqli_fetch_assoc($value)){
+						?>
+					<option value="<?php echo $row['id']; ?>"
+						<?php print ($row['id'] == $category_id) ? 'SELECTED' : '' ?>>
+						<?php echo $row['name']; ?>
+					</option>
+							<?php } ?>
+				</select>
+			</div>
 			<div class="form-group">
 				<label>Title:</label>
+				<div class="text-danger"><?php print(isset($arer['title'])) ? $arer['title'] :'';?></div>
 				<input type="text" name="title" placeholder="Title" class="form-control" value="<?php echo $title; ?>">
 			</div>
 			<div class="form-group">
+				<label>Teaser:</label>
+				<div class="text-danger"><?php print(isset($arer['teaser'])) ? $arer['teaser'] :'';?></div>	
+				<input type="text" name="teaser" placeholder="Teaser" class="form-control" value="<?php echo $teaser; ?>">				
+			</div>
+			<div class="form-group">
 				<label>Description:</label>
-				<textarea rows="3" name="description"placeholder="Description" class="form-control"value="<?php echo $description; ?>"></textarea>
+				<div class="text-danger"><?php print(isset($arer['description'])) ? $arer['description'] :'';?></div>
+				<textarea rows="2" name="description"placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
 			</div>
-			<div class="btn">
-				<a href="bloginsert.php">cancel</a>
-			</div>
+			
 			<div>
 				<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+				<a class="btn btn-default" href="listblog.php" role="button">Cancel</a>
 			</div>
 			</form>
 		</div>

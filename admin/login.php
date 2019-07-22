@@ -6,27 +6,39 @@ if(isset($_SESSION['id'])){
 }
 
 $PASSWORD = "";
+$arer= [];
+$error= false;
+// print_r($_POST);
 
-//print_r($_POST);
+if(isset($_POST['email'])) {
+	$email = trim($_POST['email']);
+	$PASSWORD = trim($_POST['PASSWORD']);
 
-if(isset($_POST['email']))
-{
-	$email = $_POST['email'];
-	$PASSWORD = $_POST['PASSWORD'];
+	if(empty($email)){
+		$error= true;
+		$arer['email']='Please fill up Email';
+	}else {
+		$email = trim($_POST['email']);
+	}
+	if(empty($PASSWORD)){
+		$error= true;
+		$arer['PASSWORD'] = 'Please fill up Password';
+	}else {
+		$PASSWORD = trim($_POST['PASSWORD']);
+	}
 
-	$sql = "SELECT * FROM users WHERE email = '$email' AND PASSWORD = '$PASSWORD' limit 1;";
+	if($error== false) {
+		$sql = "SELECT * FROM users WHERE email = '$email' AND PASSWORD = '$PASSWORD' limit 1;";
+		// print $sql;
+		$result = mysqli_query($conn, $sql) or die("BAD QUERY");
 
-	print $sql;
-	$result = mysqli_query($conn, $sql) or die("BAD QUERY");
-
-		if(mysqli_num_rows($result) == 1)
-		{
+		if(mysqli_num_rows($result) == 1) {
 
 			$data = mysqli_fetch_assoc($result);
 			// print_r($data);
 			// die;
 
-			print '<pre>' . print_r($_SESSION, true) . '</pre>';
+			// print '<pre>' . print_r($_SESSION, true) . '</pre>';
 
 			// save data in $_SESSION.
 			$_SESSION['first_name'] = $data['first_name'];
@@ -38,11 +50,15 @@ if(isset($_POST['email']))
 			$_SESSION['id'] = $data['id'];
 		
 			header("location:index.php");
+		}
+		else {
+		
+				$arer['name'] = 'Invalid Credential';
+				
+				 // echo "Invalid Credential!";
+		 		// header('location:login.php');
 			}
-	else
-		 	{
-			echo "Invalid Credential!";
-			}
+	}
 }
 
 	mysqli_close($conn);
@@ -65,27 +81,33 @@ include 'includes/connectheader.php';
 			document.forms["login"]["dob"].focus();
 			return false;
 		}
-		}
+	}
 </script>
 	
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-4">
 		<form name="login" class="login-form" method="post">
+			<div style="color: red;">
+				<?php print (isset($arer['name'])) ? $arer['name'] :''; ?>
+			</div>
 			<div class="form-group">
 				<label>Email</label>
-				<input type="mail" name="email" class="form-control">
-
+					<div style="color: red;">
+						<?php print (isset($arer['email'])) ? $arer['email'] :''; ?>
+					</div>
+				<input type="mail" name="email" autocomplete="off" class="form-control">
 			</div>
 			<div class="form-group">
 				<label>Password</label>
-				<input type="password" name="PASSWORD" class="form-control">
+					<div style="color: red;">
+						<?php print (isset($arer['PASSWORD'])) ? $arer['PASSWORD'] :''; ?>
+					</div>
+				<input type="password" name="PASSWORD" autocomplete="off" class="form-control">
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">Login</button>
-				
 			</div>
 		</form>
-		
 	</div>
 </div>
 <?php

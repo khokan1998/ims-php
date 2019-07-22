@@ -10,8 +10,7 @@ if(isset($_REQUEST['name'])){
 	$sql = "SELECT * FROM category";
 	$value = mysqli_query($conn,$sql);
 
-	if(!empty($name))
-	{
+	if(!empty($name)){
 		$sql .= "WHERE name like '%".$name."%'"; 
 	}
 	$value = mysqli_query($conn,$sql);
@@ -24,12 +23,14 @@ include 'includes/connectheader.php';
 ?>
 <div><h2>Category List</h2></div>
 <table class="table table-bordered">
-	<thead><tr>
-		<th>Id</th>
-		<th>Name</th>
-		<th>Active</th>
-		<th>Edit</th>
-	</tr></thead>
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Active</th>
+			<th>Edit</th>
+		</tr>
+	</thead>
 	<tbody>
 		<?php while ($row = mysqli_fetch_assoc($value)) {
 			?>
@@ -40,8 +41,7 @@ include 'includes/connectheader.php';
 				<td><a href="categoryinsert.php?id=<?php echo $row['id']?>">edit</a></td>
 			</tr>
 			<?php
-		}
-		?>
+				} ?>
 	</tbody>
 </table>
 <?php include 'includes/connectfooter.php';
