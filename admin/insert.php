@@ -52,33 +52,60 @@ if (isset($_POST['first_name']))
 	// $error = false;
 	if(empty($first_name)){
 		$error = true;
-		$arer['first_name'] = 'Please enter your First Name';
+		$arer['first_name'] = '* Please enter your First Name';
 	}else {
 		$first_name = trim($_POST['first_name']);
+		if(!preg_match("/^[a-zA-Z]*$/", $first_name)){
+			$arer['first_name'] = '* Only letters allowed';
+		}
 	}
 	if(empty($last_name)){
 		$error = true;
-		$arer['last_name'] = 'Please enter your Last Name';  
+		$arer['last_name'] = '* Please enter your Last Name';  
 	}else {
 		$last_name = trim($_POST['last_name']);
+		if(!preg_match("/^[a-zA-Z]*$/", $first_name)){
+			$arer['first_name'] = '* Only letters allowed';
+		}
 	}
 	if(empty($email)){
 		$error = true;
-		$arer['email'] = 'Please enter your Email';
+		$arer['email'] = '* Please enter your Email';
 	}else {
 		$email = trim($_POST['email']);
+		if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+			$arer['email'] = '* Invalid Email Address';
+		}
 	}
 	if(empty($mobile)){
 		$error = true;
-		$arer['mobile'] = 'Please enter your Mobile No';
+		$arer['mobile'] = '* Please enter your Mobile No';
 	}else {
 		$mobile = trim($_POST['mobile']);
+		if(!is_numeric($mobile)){
+			$error = true;
+			$arer['mobile'] = '* Only number input';
+		}
+		elseif(strlen($mobile)!=10){
+			$error = true;
+ 			$arer['mobile'] = '* Only input 10 digits number';
+ 		}
 	}
 	if(empty($PASSWORD)){
 		$error = true;
-		$arer['PASSWORD'] = 'Please enter your Password';
+		$arer['PASSWORD'] = '* Please enter your Password';
 	}else{
 		$PASSWORD = trim($_POST['PASSWORD']);
+	}
+	if(empty($user_role)){
+		$error = true;
+		$arer['user_role'] = '* Please select Role';
+	}else{
+		$user_role = trim($_POST['user_role']);
+		if($user_role == "NULL"){
+			$error= true;
+			$arer['user_role'] = '* Please select Role';
+		}
 	}
 
 	if ($id) {
@@ -141,44 +168,36 @@ include 'includes/connectheader.php';
 
 <div><h2>New User</h2></div>
 <div class="container">
-		
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 				<h4><?php echo ($id != '') ? 'Edit Form' : 'New form'  ?></h4>
 				<form action="" method="POST" name="login">
-
 					<div class="form-group">
 						<label>First Name:</label>
-						<div style="color:red;"><?php print(isset($arer['first_name'])) ? $arer['first_name'] :'';?></div>
+						<div class="text-danger"><?php print(isset($arer['first_name'])) ? $arer['first_name'] :'';?></div>
  						<input type="text" name="first_name" autocomplete="off" value="<?php echo $first_name;  ?>" placeholder="First Name" class="form-control">
 					</div>
-					
-				
 					<div class="form-group">
 						<label>Last Name:</label>
-						<div style="color: red;"><?php print(isset($arer['last_name'])) ? $arer['last_name'] :'';?></div>
+						<div class="text-danger"><?php print(isset($arer['last_name'])) ? $arer['last_name'] :'';?></div>
 						<input type="text" name="last_name" value="<?php echo $last_name; ?>" placeholder="Last Name" class="form-control">
 					</div>
-					
-					
 					<div class="form-group">
 						<label>Email:</label>
-							<div style="color: red;"><?php print(isset($arer['email'])) ? $arer['email'] :'';?>
+							<div class="text-danger"><?php print(isset($arer['email'])) ? $arer['email'] :'';?>
 					<?php if ($erroMsg != '') {?>
-					<div class="text-danger"><?php print $erroMsg; ?></div>
+					<div style="color: red"><?php print $erroMsg; ?></div>
 				<?php }?></div>
 						<input type="email" name="email" value="<?php echo $email; ?>" placeholder="Email" class="form-control">
 					</div>
-				
 					<div class="form-group"> 
 						<label>Mobile No:</label>
-						<div style="color: red;"><?php print(isset($arer['mobile'])) ? $arer['mobile'] :'';?></div>
+						<div class="text-danger"><?php print(isset($arer['mobile'])) ? $arer['mobile'] :'';?></div>
 						<input type="phone" name="mobile" value="<?php echo $mobile; ?>" class="form-control" placeholder="Mobile No"></div>
 					
 						<div class="form-group">
 							<label>Password:</label>
-
-								<div style="color: red;"><?php print(isset($arer['PASSWORD'])) ? $arer['PASSWORD'] :'';?></div>
+								<div class="text-danger"><?php print(isset($arer['PASSWORD'])) ? $arer['PASSWORD'] :'';?></div>
 							<input type="password" name="PASSWORD" value="<?php echo $PASSWORD; ?>" placeholder="Password" class="form-control">
 						</div>
 					<div class="checkbox">
@@ -188,10 +207,20 @@ include 'includes/connectheader.php';
 					</div>
 					<div class="form-group">
 						<label for="Role">Role:</label>
+						<div class="text-danger"><?php if($user_role == "NULL"){
+							print $arer['user_role'];
+							}?></div>
+
 						<select name="user_role" id="Role" class="form-control">
-							<option value="user">USER</option>
-							<option value="admin" selected="">ADMIN</option>
+							<option value="NULL">Please Select</option>
+							<option value="user"<?php print ($user_role == 'user') ? 'SELECTED':''; ?>>USER</option>
+							<option value="admin"<?php print ($user_role == 'admin') ? 'SELECTED': ''; ?>>ADMIN</option>
 						</select>
+					</div>
+					<div>
+						<div class="form-group">
+						<label for="img">Image:</label>
+						<input type="file" name="img" id="img">
 					</div>
 					<div>
 						<button type="submit" name="submit" class="btn btn-primary">Submit</button>
@@ -201,6 +230,5 @@ include 'includes/connectheader.php';
 			</div>
 		</div>
 	</div>
-	
   	<?php include 'includes/connectfooter.php';
  ?>
