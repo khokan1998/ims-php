@@ -1,7 +1,7 @@
-</div>
-	<div class="container-fluid footer">
-		footer
 	</div>
+		<div class="container-fluid footer">
+			footer
+		</div>
 
-</body>
+	</body>
 </html>
