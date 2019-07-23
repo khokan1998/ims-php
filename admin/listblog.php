@@ -6,9 +6,9 @@ if (!isset($_SESSION['first_name'])) {
 $title= "";
 
 if(isset($_REQUEST['title'])){
-	$title=$_GET['title'];
+	$title=trim($_GET['title']);
 
-	$sql = "SELECT * FROM blog";
+	$sql ="SELECT * FROM blog";
 	$result = mysqli_query($conn,$sql);
 
 	if(!empty($title)){
@@ -17,24 +17,26 @@ if(isset($_REQUEST['title'])){
 	$result = mysqli_query($conn,$sql);
 }
 else {
-	$sql = "SELECT * FROM blog";
+	$sql ="SELECT * FROM blog";
 	$result = mysqli_query($conn,$sql) or die("error");
 }
 include 'includes/connectheader.php';
 ?>
 <div><h2>Blog</h2></div>
-<form class="form-inline">
-	<div class="form-group">
-		<input type="text"class="form-control"placeholder="search"name="title"value="
-			<?php echo $title;?>">
-		<button type="submit" class="btn btn-primary">search</button>
-	</div>
-</form>
+
+		<form class="form-inline">
+			<div class="form-group">
+				<input type="text"class="form-control"autocomplite="off"placeholder="search"name="title"value="<?php echo $title;?>">
+				<button type="submit" class="btn btn-primary">search</button>
+			</div>
+		</form>
+<form>
 <table class="table table-sesponsive">
  	<thead>
  		<tr>
 			<th>Id</th>	
 			<th>Title</th>
+			<th>Teaser</th>
 			<th>Description</th>
 			<th>Created On</th>
 			<th>Updated On</th>
@@ -50,13 +52,14 @@ include 'includes/connectheader.php';
 		<tr>
 		    <td><?php echo $row['id']; ?></td>
 			<td><?php echo $row['title']; ?></td>
+			<td><?php echo $row['teaser']; ?></td>
 			<td><?php echo $row['description']; ?></td>
 			<td><?php echo $row['created_on']; ?></td>
 			<td><?php echo $row['updated_on']; ?></td>
 			<td><?php echo $row['created_by']; ?></td>
 			<td><?php echo $row['updated_by']; ?></td>
 			<td><?php echo $row['category_id']; ?></td>
-			<td><a href="bloginsert.php?id=<?php echo $row['id']?>">edit</a></td>
+			<td><a class="btn btn-primary" href="bloginsert.php?id=<?php echo $row['id']?>" role="button">Edit</a></td>
 		</tr>
 		<?php
 			} ?>
