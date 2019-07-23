@@ -6,25 +6,20 @@ if (!isset($_SESSION['first_name'])) {
 $first_name = "";
 
 if(isset($_REQUEST['first_name'])){
-    $first_name=$_GET['first_name'];
+    $first_name = $_GET['first_name'];
     
-    $sql=" SELECT * FROM users";
-     $result=mysqli_query($conn,$sql);
+    $sql =" SELECT * FROM users";
+    $result = mysqli_query($conn,$sql);
 
     if (!empty($first_name)) {
         $sql .= " WHERE first_name like '%".$first_name."%' OR last_name LIKE '%".$first_name."%' OR email LIKE '%".$first_name."%' OR mobile LIKE '%".$first_name."%' OR user_role like '%".$first_name."%'";
     }
-    
-
-
     //$sql .= " LIMIT 2 ";
-
-
     $result=mysqli_query($conn,$sql);
 }
 else{
-    $sql= "SELECT * FROM users";
-    $result=mysqli_query($conn,$sql);
+    $sql = "SELECT * FROM users";
+    $result = mysqli_query($conn,$sql);
 }
 ?>
 <?php include 'includes/connectheader.php'; ?>
@@ -64,7 +59,7 @@ else{
 				<td><?php echo $row['created_on']?></td>
 				<td><?php echo $row['is_active']?></td>
 				<td><?php echo $row['user_role']?></td>
-				<td><a href="insert.php?id=<?php echo $row['id']?>">edit</a></td>
+				<td><a class="btn btn-primary" href="insert.php?id=<?php echo $row['id']?>" role="button">Edit</a></td>
 			</tr>
 		<?php 
 			} ?>
