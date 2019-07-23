@@ -1,4 +1,4 @@
-  <?php
+   <?php
 include 'includes/connectserver.php';
 if (!isset($_SESSION['first_name'])) {
 	header("Location:login.php");
@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_POST) {
-	  print_r($_POST);
+	  // print_r($_POST);
 	$title = trim($_POST['title']);
 	$teaser = trim($_POST['teaser']);
 	$description = trim($_POST['description']);
@@ -61,11 +61,19 @@ if ($_POST) {
 	} else {
 		$description = trim($_POST['description']);
 	}
-	// if($category_id == 'NULL'){
-	// 	$arer['category_id'] = '* Please Select Category';	
-	// }
+	if (empty($category_id)) {
+		$error = true;
+		$arer['category_id'] = '* Please Select Category';
+	}
+	else{
+		$category_id = $_POST['category_id'];
+		if($category_id == 'NULL'){
+			$error = true;
+	 		$arer['category_id'] = '* Please Select Category';
+ 		}	
+	}
 		
-	 if ($id) {
+	if ($id) {
 	 	if($error == false){
 	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId, category_id = $category_id,teaser = '$teaser' where id = $id";
  			if (mysqli_query($conn,$sql)) {
@@ -77,18 +85,17 @@ if ($_POST) {
  		}
  	}
     else {
-		$sql = "INSERT INTO blog(title,description,created_on,created_by,category_id) VALUES ('$title','$description',now(), $userId,$category_id)";
-	//print $sql;
-	// echo "</br>";
-		if (mysqli_query($conn, $sql)) 
-		{
-			 header('location: listblog.php');
-		    // echo "New record created successfully";
-		} 
-		else
-		{ 
-		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			mysqli_close($conn);
+    	if($error == false){
+			$sql = "INSERT INTO blog(title,description,created_on,created_by,category_id,teaser) VALUES ('$title','$description',now(), $userId,$category_id,'$teaser')";
+			//print $sql;
+			if (mysqli_query($conn, $sql)) {
+				 header('location: listblog.php');
+			    // echo "New record created successfully";
+			} 
+			else{ 
+			    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				mysqli_close($conn);
+			}
 		}
 	}
 }
@@ -99,52 +106,48 @@ include 'includes/connectheader.php';
 <div class="container">
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-4">
-
 			<form action="" method="POST" name="insert">
-				<?php $category_id; ?>
-			<div class="form-group">			
-				<label for="Category">Category:</label>
-				<select name="category_id" id="Category" class="form-control">
-					<!-- <div class="text-danger"><?php if($category_id == 'NULL'){ print $arer['category_id'];} ?></div> -->
-					<option value="NULL">Please Select</option>
-		
-					<?php
-					$sql = "SELECT * FROM category WHERE is_active = 1";
-					$value = mysqli_query($conn,$sql) OR die("error");
-					while($row = mysqli_fetch_assoc($value)){
-						?>
-					<option value="<?php echo $row['id']; ?>"
-						<?php print ($row['id'] == $category_id) ? 'SELECTED' : '' ?>>
-						<?php echo $row['name']; ?>
-					</option>
+				<div class="form-group">			
+					<label for="Category">Category:</label>
+					<div class="text-danger"><?php if($category_id == "NULL"){
+							print $arer['category_id'];}?>		
+					</div> 
+					<select name="category_id" id="Category" class="form-control">
+						<option value="NULL">Please Select</option>
+						<?php
+							$sql = "SELECT * FROM category WHERE is_active = 1";
+							$value = mysqli_query($conn,$sql) OR die("error");
+							while($row = mysqli_fetch_assoc($value)){ ?>
+						<option value="<?php echo $row['id']; ?>"
+							<?php print ($row['id'] == $category_id) ? 'SELECTED' : '' ?>>
+							<?php echo $row['name']; ?>
+						</option>
 							<?php } ?>
-				</select>
-			</div>
-			<div class="form-group">
-				<label>Title:</label>
-				<div class="text-danger"><?php print(isset($arer['title'])) ? $arer['title'] :'';?></div>
-				<input type="text" name="title" placeholder="Title" class="form-control" value="<?php echo $title; ?>">
-			</div>
-			<div class="form-group">
-				<label>Teaser:</label>
-				<div class="text-danger"><?php print(isset($arer['teaser'])) ? $arer['teaser'] :'';?></div>	
-				<input type="text" name="teaser" placeholder="Teaser" class="form-control" value="<?php echo $teaser; ?>">				
-			</div>
-			<div class="form-group">
-				<label>Description:</label>
-				<div class="text-danger"><?php print(isset($arer['description'])) ? $arer['description'] :'';?></div>
-				<textarea rows="2" name="description"placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
-			</div>
-			
-			<div>
-				<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-				<a class="btn btn-default" href="listblog.php" role="button">Cancel</a>
-			</div>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Title:</label>
+					<div class="text-danger"><?php print(isset($arer['title'])) ? $arer['title'] :'';?></div>
+					<input type="text" name="title" placeholder="Title" class="form-control" value="<?php echo $title; ?>">
+				</div>
+				<div class="form-group">
+					<label>Teaser:</label>
+					<div class="text-danger"><?php print(isset($arer['teaser'])) ? $arer['teaser'] :'';?></div>	
+					<input type="text" name="teaser" placeholder="Teaser" class="form-control" value="<?php echo $teaser; ?>">				
+				</div>
+				<div class="form-group">
+					<label>Description:</label>
+						<div class="text-danger"><?php print(isset($arer['description'])) ? $arer['description'] :'';?></div>
+					<textarea rows="2" name="description"placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
+				</div>
+				<div>
+					<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+					<a class="btn btn-default" href="listblog.php" role="button">Cancel</a>
+				</div>
 			</form>
 		</div>
 	</div>
-</div>
-		  	
+</div>		  	
 <?php include 'includes/connectfooter.php';
  ?>
   
