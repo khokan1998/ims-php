@@ -16,13 +16,13 @@ if(isset($_POST['email'])) {
 
 	if(empty($email)){
 		$error= true;
-		$arer['email']='Please fill up Email';
+		$arer['email']='* Please fill up Email';
 	}else {
 		$email = trim($_POST['email']);
 	}
 	if(empty($PASSWORD)){
 		$error= true;
-		$arer['PASSWORD'] = 'Please fill up Password';
+		$arer['PASSWORD'] = '* Please fill up Password';
 	}else {
 		$PASSWORD = trim($_POST['PASSWORD']);
 	}
@@ -38,7 +38,7 @@ if(isset($_POST['email'])) {
 			// print_r($data);
 			// die;
 
-			// print '<pre>' . print_r($_SESSION, true) . '</pre>';
+		// print '<pre>' . print_r($_SESSION, true) . '</pre>';
 
 			// save data in $_SESSION.
 			$_SESSION['first_name'] = $data['first_name'];
@@ -46,21 +46,18 @@ if(isset($_POST['email'])) {
 			$_SESSION['email'] = $data['email'];
 			$_SESSION['mobile'] = $data['mobile'];
 			$_SESSION['PASSWORD'] = $data['PASSWORD'];
+			$_SESSION['user_role'] = $data['user_role'];
 			
 			$_SESSION['id'] = $data['id'];
-		
+		// print '<pre>' . print_r($_SESSION, true) . '</pre>';
 			header("location:index.php");
 		}
 		else {
-		
-				$arer['name'] = 'Invalid Credential';
-				
-				 // echo "Invalid Credential!";
-		 		// header('location:login.php');
+				$arer['name'] = '* Invalid Credential';
+				 //echo "Invalid Credential!";
 			}
 	}
 }
-
 	mysqli_close($conn);
 	
 include 'includes/connectheader.php';
