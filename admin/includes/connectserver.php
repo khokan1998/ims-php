@@ -1,9 +1,9 @@
 <?php
 session_start();
-//print '<pre>' . print_r($_SESSION,true) . '</pre>';
+// print '<pre>' . print_r($_SESSION,true) . '</pre>';
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "admin";
 $dbname = "ims";
 $conn =mysqli_connect($servername,$username,$password,$dbname);
 if (!$conn) {

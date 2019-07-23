@@ -9,15 +9,15 @@
 	<div class="container-fluid header">
 		<div class="row">
 			<div class="col-sm-2">
-			LOGO HERE
+				LOGO HERE
 			</div>
 			<div class="col-sm-6">
-				<?php
+			<?php
 				if(isset($_SESSION['id'])){	
-				?>
+					?>
 				<ul class="list-inline">
 					<li><a href="index.php">Home</a></li>
-					<li><a href="listblog.php">Blog List</a></li>
+					<li><a href="listblog.php">Blogs</a></li>
 					<li><a href="bloginsert.php">Blog Insert</a></li>
 					<li><a href="list.php">User</a></li>
 					<li><a href="insert.php">New User</a></li>
@@ -32,12 +32,14 @@
 			<div class="col-sm-4" align="right">
 				<?php
 				if(isset($_SESSION['id'])){
-				$first_name= $_SESSION['first_name'];
-				$last_name= $_SESSION['last_name']; 
-				if(isset($_SESSION['first_name'])){
-				echo $first_name.' '.$last_name;
+					
+					$fname = $_SESSION['first_name'];
+					$lname = $_SESSION['last_name'];
+
+					if(isset($_SESSION['first_name'])){
+						echo $fname.' '.$lname;
+					}
 				}
-			}
 				?>
 			</div>
 
