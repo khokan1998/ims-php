@@ -60,7 +60,7 @@ if(isset($_POST['name'])){
 				// echo "data insert successfully";
 			}
 			else{
-				echo "error:" . $sql . "<br>".mysqli_erroe($conn);
+				echo "error:" . $sql . "<br>".mysqli_error($conn);
 			}
 		}
 		mysqli_close($conn);
@@ -76,7 +76,7 @@ include 'includes/connectheader.php';
 				<div class="form-group">
 					<label>Name:</label>
 						<div style="color:red;"><?php print(isset($arer['name'])) ? $arer['name'] :'';?></div>
-						<input type="textfield" name="name" placeholder="Name" class="form-control"
+						<input type="textfield" name="name" autocomplete="off" placeholder="Name" class="form-control"
 							value="<?php echo $name; ?>">
 				</div>
 				<div class="checkbox">
