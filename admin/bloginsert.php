@@ -128,17 +128,17 @@ include 'includes/connectheader.php';
 				<div class="form-group">
 					<label>Title:</label>
 					<div class="text-danger"><?php print(isset($arer['title'])) ? $arer['title'] :'';?></div>
-					<input type="text" name="title" placeholder="Title" class="form-control" value="<?php echo $title; ?>">
+					<input type="text" name="title" autocomplete="off" placeholder="Title" class="form-control" value="<?php echo $title; ?>">
 				</div>
 				<div class="form-group">
 					<label>Teaser:</label>
 					<div class="text-danger"><?php print(isset($arer['teaser'])) ? $arer['teaser'] :'';?></div>	
-					<input type="text" name="teaser" placeholder="Teaser" class="form-control" value="<?php echo $teaser; ?>">				
+					<input type="text" name="teaser" autocomplete="off" placeholder="Teaser" class="form-control" value="<?php echo $teaser; ?>">				
 				</div>
 				<div class="form-group">
 					<label>Description:</label>
 						<div class="text-danger"><?php print(isset($arer['description'])) ? $arer['description'] :'';?></div>
-					<textarea rows="2" name="description"placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
+					<textarea rows="2" name="description" autocomplete="off" placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
 				</div>
 				<div>
 					<button type="submit" name="submit" class="btn btn-primary">Submit</button>
