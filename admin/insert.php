@@ -95,7 +95,7 @@ if (isset($_POST['first_name']))
 		$error = true;
 		$arer['PASSWORD'] = '* Please enter your Password';
 	}else{
-		$PASSWORD = trim($_POST['PASSWORD']);
+		$PASSWORD = trim(md5($_POST['PASSWORD']));
 	}
 	if(empty($user_role)){
 		$error = true;
@@ -107,7 +107,7 @@ if (isset($_POST['first_name']))
 			$arer['user_role'] = '* Please select Role';
 		}
 	}
-
+// print_r($_POST);
 	if ($id) {
 		if ($error == false) {
 			// case edit.. DO UPDATE.
@@ -180,7 +180,7 @@ include 'includes/connectheader.php';
 					<div class="form-group">
 						<label>Last Name:</label>
 						<div class="text-danger"><?php print(isset($arer['last_name'])) ? $arer['last_name'] :'';?></div>
-						<input type="text" name="last_name" value="<?php echo $last_name; ?>" placeholder="Last Name" class="form-control">
+						<input type="text" name="last_name" autocomplete="off" value="<?php echo $last_name; ?>" placeholder="Last Name" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Email:</label>
@@ -188,17 +188,17 @@ include 'includes/connectheader.php';
 					<?php if ($erroMsg != '') {?>
 					<div style="color: red"><?php print $erroMsg; ?></div>
 				<?php }?></div>
-						<input type="email" name="email" value="<?php echo $email; ?>" placeholder="Email" class="form-control">
+						<input type="email" name="email" autocomplete="off" value="<?php echo $email; ?>" placeholder="Email" class="form-control">
 					</div>
 					<div class="form-group"> 
 						<label>Mobile No:</label>
 						<div class="text-danger"><?php print(isset($arer['mobile'])) ? $arer['mobile'] :'';?></div>
-						<input type="phone" name="mobile" value="<?php echo $mobile; ?>" class="form-control" placeholder="Mobile No"></div>
+						<input type="phone" name="mobile" autocomplete="off" value="<?php echo $mobile; ?>" class="form-control" placeholder="Mobile No"></div>
 					
 						<div class="form-group">
 							<label>Password:</label>
 								<div class="text-danger"><?php print(isset($arer['PASSWORD'])) ? $arer['PASSWORD'] :'';?></div>
-							<input type="password" name="PASSWORD" value="<?php echo $PASSWORD; ?>" placeholder="Password" class="form-control">
+							<input type="password" name="PASSWORD" autocomplete="off" value="<?php echo $PASSWORD; ?>" placeholder="Password" class="form-control">
 						</div>
 					<div class="checkbox">
 						<label>

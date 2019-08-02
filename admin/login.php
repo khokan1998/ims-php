@@ -24,20 +24,20 @@ if(isset($_POST['email'])) {
 		$error= true;
 		$arer['PASSWORD'] = '* Please fill up Password';
 	}else {
-		$PASSWORD = trim($_POST['PASSWORD']);
+		$PASSWORD = trim(md5($_POST['PASSWORD']));
 	}
-
+	// print $PASSWORD;
 	if($error== false) {
-		$sql = "SELECT * FROM users WHERE email = '$email' AND PASSWORD = '$PASSWORD' limit 1;";
-		// print $sql;
+		 // $sql = "SELECT * FROM users WHERE email = '$email' AND PASSWORD = '$PASSWORD' limit 1;";
+
+		$sql = "SELECT * FROM users WHERE email = '$email' AND is_active = 1 AND user_role = 'admin' limit 1 ";
+		//  	$pass = md5($PASSWORD);
 		$result = mysqli_query($conn, $sql) or die("BAD QUERY");
 
 		if(mysqli_num_rows($result) == 1) {
 
 			$data = mysqli_fetch_assoc($result);
-			// print_r($data);
-			// die;
-
+			
 		// print '<pre>' . print_r($_SESSION, true) . '</pre>';
 
 			// save data in $_SESSION.
@@ -50,7 +50,7 @@ if(isset($_POST['email'])) {
 			
 			$_SESSION['id'] = $data['id'];
 		// print '<pre>' . print_r($_SESSION, true) . '</pre>';
-			header("location:index.php");
+			 header("location:index.php");
 		}
 		else {
 				$arer['name'] = '* Invalid Credential';
