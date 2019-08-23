@@ -30,7 +30,7 @@ include 'includes/connectheader.php';
 				<button type="submit" class="btn btn-primary">search</button>
 			</div>
 		</form>
-<form>
+
 <table class="table table-sesponsive">
  	<thead>
  		<tr>
