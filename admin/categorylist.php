@@ -21,15 +21,25 @@ $name = '';
 include 'includes/connectheader.php';
 ?>
 <div><h2>Category List</h2></div>
+
+<!-- <div class="col-sm-12 col-md-6">	
+	<div id="dtbasicExample_filter"  class="dataTables_filter">
+
+		<label>search :
+			<input type="search" name="" class="form-control form-control-sm" placeholder aria-controls="dtbasicExample">
+		</label>
+	</div>
+</div>
+ -->
 		<form class="form-inline">
-			<div class="form-group">
-				<input type="text"class="form-control"autocomplite="off"placeholder="search"name="name"value="<?php echo $name;?>">
+			<div class="form-group">	
+					<input type="text"class="form-control"autocomplite="off"placeholder="search"name="name"
+						value="<?php echo $name;?>"> 
 				<button type="submit" class="btn btn-primary">search</button>
 			</div>
 		</form>
-<form>
-	<div class="col-sm-8 col-sm-offset-2">
-		<table class="table table-bordered">
+
+		<table class="table table-responsive">
 			<thead>
 				<tr>
 					<th>Id</th>
@@ -51,7 +61,6 @@ include 'includes/connectheader.php';
 						} ?>
 			</tbody>
 		</table>
-	</div>
-</form>
+
 <?php include 'includes/connectfooter.php';
 ?>
