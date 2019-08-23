@@ -1,0 +1,76 @@
+	.h{
+		font-size:40px;
+	    padding-bottom: 9px;
+    	margin: 40px 0 20px; 
+	}
+
+	.h5 {
+		margin-top: 0px;
+		font-weight: 500;
+    	font-size: 2.50rem;
+	}
+	.card-body{
+	    flex: 1 1 auto;
+    	padding: 1.25rem;
+    	box-sizing: border-box;
+	}
+	.card-img-top {
+   		width: 100%;
+	    border-top-left-radius: calc(.25rem - 1px);
+	    border-top-right-radius: calc(.25rem - 1px);
+	}
+	.card{
+		position: relative;
+		display: flex;
+		border: 1px solid rgba(0,0,0,.100);
+	    display: flex;
+	   
+     	-ms-flex-direction: column;   
+	    flex-direction: column;
+	    min-width: 0;
+	    word-wrap: break-word;
+	    background-color: #fff;
+	    background-clip: border-box;
+	    border: 1px solid rgba(0,0,0,.125);
+	    border-radius: .25rem;
+	}
+	.mb-4, .my-4, .mt-4 {
+    	margin-bottom: 1.5rem!important;
+	}
+	.my-4{
+		margin-top: 3.5rem!important;
+	}
+	.well{
+		margin-bottom: 0px; 
+	}
+	.page-item, .page-link {
+	    margin-left: 0;
+	    border-top-left-radius: .25rem;
+	    border-bottom-left-radius: .25rem;
+	}
+	.justify-content-center {
+	    justify-content: center!important;
+	}
+	.a {
+		display: flex;
+	}
+	.pt-5, .py-5 {
+	    padding-top: 3rem!important;
+	}
+	.bg-dark {
+   		background-color: #343a40!important;
+	}
+	.text-white {
+    	color: #fff!important;
+	}
+	.card-header {
+    	padding: .75rem 2.50rem;
+	    margin-bottom: 0px;
+	    padding-top: 2.5rem!important;
+	    background-color: rgba(0,0,0,.03);
+	    border-bottom: 1px solid rgba(0,0,0,.125);
+	    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+	}
+	.card-header:first-child {
+	    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+	}
