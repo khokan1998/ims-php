@@ -9,7 +9,7 @@ if(isset($_REQUEST['title'])){
 	$title=trim($_GET['title']);
 
 	$sql ="SELECT * FROM blog";
-	$result = mysqli_query($conn,$sql);
+	// $result = mysqli_query($conn,$sql);
 
 	if(!empty($title)){
 		$sql .= " WHERE title like '%".$title."%'";
@@ -37,12 +37,14 @@ include 'includes/connectheader.php';
 			<th>Id</th>	
 			<th>Title</th>
 			<th>Teaser</th>
-			<th>Description</th>
+			<!-- <th>Description</th> -->
 			<th>Created On</th>
 			<th>Updated On</th>
 			<th>Created By</th>
 			<th>Updated By</th>
 			<th>Category</th>
+			<th>Featured</th>
+			<th>active</th>
 			<th>Edit</th>
 		</tr>
 	</thead>
@@ -53,12 +55,14 @@ include 'includes/connectheader.php';
 		    <td><?php echo $row['id']; ?></td>
 			<td><?php echo $row['title']; ?></td>
 			<td><?php echo $row['teaser']; ?></td>
-			<td><?php echo $row['description']; ?></td>
+			<!-- <td><?php echo $row['description']; ?></td> -->
 			<td><?php echo $row['created_on']; ?></td>
 			<td><?php echo $row['updated_on']; ?></td>
 			<td><?php echo $row['created_by']; ?></td>
 			<td><?php echo $row['updated_by']; ?></td>
 			<td><?php echo $row['category_id']; ?></td>
+			<td><?php echo $row['is_featured']?></td>
+			<td><?php echo $row['is_active']?></td>
 			<td><a class="btn btn-primary" href="bloginsert.php?id=<?php echo $row['id']?>" role="button">Edit</a></td>
 		</tr>
 		<?php
