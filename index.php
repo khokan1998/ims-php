@@ -4,7 +4,7 @@ include 'admin/includes/connectserver.php';
 include 'includes/header.php';
 ?>
 
-<div class="container">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
 				<div class="row">
@@ -13,12 +13,16 @@ include 'includes/header.php';
 					</h1>
 				</div>
 			<?php 
-			$sql = "SELECT * FROM blog ";
+			//select b.created_by, u.first_name, u.last_name, count(b.id), group_concat(b.title) from blog b join users u on b.created_by = u.id group by b.created_by;
+			
+			// $sql = "SELECT * FROM blog ";
+				// $sql = "select b.id,b.title,b.teaser,b.created_on,u.first_name,u.last_name from blog b join users u on b.created_by = u.id ";
+				$sql = "select b.id,b.title,b.teaser,b.created_on,b.is_featured,b.is_active,u.first_name,u.last_name from blog b join users u on b.created_by = u.id where b.is_featured like 1 and b.is_active like 1";
 				$result = mysqli_query($conn,$sql);
 			
 			while ($row = mysqli_fetch_assoc($result)){
-				// $date = $row['created_on'];
-				// $newdate = date("M d,y",strtotime($date));
+				$date = $row['created_on'];
+				$newdate = date("M d,y",strtotime($date));
  			?>
 				<div class="card mb-4">
 					<img class="card-img-top" src="images/b1.jpg" alt="card-img cap">
@@ -27,11 +31,11 @@ include 'includes/header.php';
 						<p class="card-text">
 							<?php echo $row['teaser']; ?>
 						</p>
-						<a href="#" class="btn btn-primary">Read More -></a>					
+						<a href="blog.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Read More -></a>					
 					</div>
-					<div class=" well card-footer text-muted"><?php echo date($row['created_on']); 
+					<div class=" well card-footer text-muted"><?php echo $newdate; ?><?php // echo date($row['created_on']); 
 					 ?> by &nbsp;
-					 <a href="#"><td><?php echo $row['created_by'];  ?></a></div>	
+					 <a href="#"><td><?php echo $row['first_name'].' '.$row['last_name'] ;  ?></a></div>	
 				</div>
 				<?php
 			 		}
@@ -46,46 +50,7 @@ include 'includes/header.php';
 					</li>
 				</ul>
 			</div>
-			<div class="col-md-4">
-				<div class="card my-4">
-					<h5 class="card-header">Search</h5>
-					<div class="card-body">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search for...">
-							<span class="input-group-btn">
-								<button class="btn btn-secondary" type="button">Go</button>
-							</span>	
-						</div>
-					</div>
-				</div>
-				<div class="card my-4">
-					<h5 class="card-header">Categories</h5>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-lg-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#">Web Design</a></li>
-									<li><a href="#">HTML</a></li>
-									<li><a href="#">Freebies</a></li>	
-								</ul>
-							</div>
-							<div class="col-lg-6">
-								<ul class="list-unstyled mb-0">
-									<li><a href="#">JavaScript</a></li>
-									<li><a href="#">CSS</a></li>
-									<li><a href="#">Tutorials</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card my-4">
-					<h5 class="card-header">Side Widget</h5>
-					<div class="card-body">
-						You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-					</div>
-				</div>
-			</div>
+			<?php include 'includes/right_panel.php'; ?> 
 		</div>
 	</div>
 
