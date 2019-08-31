@@ -9,7 +9,7 @@ if(isset($_REQUEST['first_name'])){
     $first_name = $_GET['first_name'];
     
     $sql =" SELECT * FROM users";
-    $result = mysqli_query($conn,$sql);
+    // $result = mysqli_query($conn,$sql);
 
     if (!empty($first_name)) {
         $sql .= " WHERE first_name like '%".$first_name."%' OR last_name LIKE '%".$first_name."%' OR email LIKE '%".$first_name."%' OR mobile LIKE '%".$first_name."%' OR user_role like '%".$first_name."%'";
