@@ -1,5 +1,5 @@
 <?php
-include __dir__ . '/conflict.php';
+include __dir__ . '/config.php';
 session_start();
 // print '<pre>' . print_r($_SESSION,true) . '</pre>';
 $servername = "localhost";
