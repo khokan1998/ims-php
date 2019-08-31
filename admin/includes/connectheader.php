@@ -4,6 +4,17 @@
 	<title>Admin Panel</title>
 	<link rel="stylesheet" type="text/css" href="html/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="html/css/cust.css">
+	<script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.3.4.1.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../css/summernote.css">
+	<script type="text/javascript" src="../js/summernote.js"></script>
+
+
+
+	<!-- include summernote css/js -->
+	<!-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script> -->
 </head>
 <body>
 	<div class="container-fluid header">

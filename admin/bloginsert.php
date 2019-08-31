@@ -14,6 +14,8 @@ $created_by = '';
 $updated_by = '';
 $category_id = '';
 $teaser = '';
+$is_featured = '';
+$is_active = '';
 $error = false;
 $arer = [];		
 
@@ -32,6 +34,8 @@ if (isset($_GET['id'])) {
 	$updated_by = $data['id'];
 	$category_id = $data['category_id'];
 	$teaser = $data['teaser'];
+	$is_featured = $data['is_featured'];
+	$is_active = $data['is_active'];
 	// print_r($data);
 }
 
@@ -41,6 +45,8 @@ if ($_POST) {
 	$teaser = trim($_POST['teaser']);
 	$description = trim($_POST['description']);
 	$category_id = $_POST['category_id'];
+	$is_featured = (isset($_POST['is_featured'])) ? 1 : 0;
+	$is_active = (isset($_POST['is_active'])) ? 1 : 0;
 	$userId = $_SESSION['id'];
 
 	if(empty($title)){
@@ -75,7 +81,7 @@ if ($_POST) {
 		
 	if ($id) {
 	 	if($error == false){
-	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId, category_id = $category_id,teaser = '$teaser' where id = $id";
+	 		$sql = "UPDATE blog SET title = '$title',description = '$description',updated_on = now(),updated_by = $userId, category_id = $category_id,teaser = '$teaser',is_featured = '$is_featured',is_active = '$is_active' where id = $id";
  			if (mysqli_query($conn,$sql)) {
  				header('location: listblog.php');
  				// echo "Data update successfully";
@@ -86,7 +92,7 @@ if ($_POST) {
  	}
     else {
     	if($error == false){
-			$sql = "INSERT INTO blog(title,description,created_on,created_by,category_id,teaser) VALUES ('$title','$description',now(), $userId,$category_id,'$teaser')";
+			$sql = "INSERT INTO blog(title,description,created_on,created_by,category_id,teaser,is_featured,is_active) VALUES ('$title','$description',now(), $userId,$category_id,'$teaser','$is_featured','$is_active')";
 			//print $sql;
 			if (mysqli_query($conn, $sql)) {
 				 header('location: listblog.php');
@@ -105,7 +111,7 @@ include 'includes/connectheader.php';
 <div><h2>Blog Insert</h2></div>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-4 col-sm-offset-4">
+		<div class="col-sm-12">
 			<form action="" method="POST" name="insert">
 				<div class="form-group">			
 					<label for="Category">Category:</label>
@@ -138,8 +144,18 @@ include 'includes/connectheader.php';
 				<div class="form-group">
 					<label>Description:</label>
 						<div class="text-danger"><?php print(isset($arer['description'])) ? $arer['description'] :'';?></div>
-					<textarea rows="2" name="description" autocomplete="off" placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
+					<textarea id="summernote" rows="2" name="description" autocomplete="off" placeholder="Description" class="form-control"><?php echo $description; ?></textarea>
 				</div>
+				<div class="checkbox">
+						<label>
+						<input type="checkbox" name="is_featured" value="1" <?php echo ($is_featured) ? 'checked' : '';?>>
+						Is_featured</label>
+					</div>
+				<div class="checkbox">
+						<label>
+						<input type="checkbox" name="is_active" value="1" <?php echo ($is_active) ? 'checked' : '';?>>
+						Is_active</label>
+					</div>
 				<div>
 					<button type="submit" name="submit" class="btn btn-primary">Submit</button>
 					<a class="btn btn-default" href="listblog.php" role="button">Cancel</a>
@@ -147,7 +163,12 @@ include 'includes/connectheader.php';
 			</form>
 		</div>
 	</div>
-</div>		  	
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+  		$('#summernote').summernote();
+	});
+</script>
 <?php include 'includes/connectfooter.php';
  ?>
   
