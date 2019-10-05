@@ -1,9 +1,9 @@
 <?php include 'includes/connectserver.php';
  	include 'includes/connectheader.php';
 
+
+//var_dump($_SESSION);
 	if(!isset($_SESSION['first_name'])){
-		$fname = $_SESSION['fname'];
-		$lname = $_SESSION['lname'];
 		header('location:login.php');
 	}
 	?>
